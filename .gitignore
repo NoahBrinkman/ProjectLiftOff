@@ -1,6 +1,10 @@
+# Engine related files
 GXPEngine/obj
-.vs
 GXPEngine.userprefs
-GXPEngine/bin/Debug
 
-.idea/.idea.GXPEngine/.idea/workspace.xml
+# IDE related files
+.vs
+.idea
+
+# EXE files
+*.exe
