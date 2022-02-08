@@ -41,7 +41,7 @@ public class MyGame : Game
 		player.x = width / 2;
 		player.y = height - 100;
 		AddChild(objectOwner);
-		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner);
+		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,33,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 	}

@@ -100,9 +100,11 @@ namespace GXPEngine
                 Platform p = (Platform)other;
                 if (!p.beenUsed)
                 {
-                    p.beenUsed = true;
-                    platformCurrentlyOn = p;
-                   
+                    if (velocity <= .1f)
+                    {
+                     p.beenUsed = true;
+                     platformCurrentlyOn = p;   
+                    }
                 }
                 onPlatform = true;
             }

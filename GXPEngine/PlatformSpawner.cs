@@ -8,10 +8,14 @@ namespace GXPEngine
         private Pivot platformParent;
         private float secondsPerPlatform;
         private float timer;
-        public PlatformSpawner(float secondsPerPlatform, Pivot platformParent)
+        private int percentageChanceOfCollapsable;
+        private float secondsBeforeCollapse;
+        public PlatformSpawner(float secondsPerPlatform, Pivot platformParent, int percentageChanceOfCollapsable, float secondsBeforeCollapse)
         {
             this.secondsPerPlatform = secondsPerPlatform;
             this.platformParent = platformParent;
+            this.percentageChanceOfCollapsable = percentageChanceOfCollapsable;
+            this.secondsBeforeCollapse = secondsBeforeCollapse;
             timer = secondsPerPlatform;
         }
 
@@ -27,16 +31,20 @@ namespace GXPEngine
 
         private void Spawnplatform()
         {
-            Platform p = new Platform("square.png");
+          
+            int r = Utils.Random(0, 100);
+            var p = r < percentageChanceOfCollapsable ? new CollapsingPlatform("square.png",secondsBeforeCollapse) 
+                : new Platform("square.png");
             p.SetOrigin(p.width / 2, p.height / 2);
-            p.SetScaleXY(2, 2);
-            p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);
-            platformParent.AddChildAt(p, 0);
-            if (p.GetCollisions().Length > 0)
-            {
-                p.Destroy();
-                Spawnplatform();
-            }
+                p.SetScaleXY(2, 2);
+                p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);
+                platformParent.AddChildAt(p, 0);
+                if (p.GetCollisions().Length > 0)
+                {
+                    p.Destroy();
+                    Spawnplatform();
+                }
+            
         }
     }
 }
