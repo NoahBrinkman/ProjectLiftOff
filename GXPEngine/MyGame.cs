@@ -6,8 +6,8 @@ public class MyGame : Game
 {
 	private Player player;
 	private Pivot objectOwner;
-	
-	public MyGame() : base(1000, 600, false)		// Create a window that's 800x600 and NOT fullscreen
+	private float gravity = .2f;
+	public MyGame() : base(1366, 768, true)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		objectOwner = new Pivot();
 		Platform p1 = new Platform("square.png");
@@ -34,7 +34,8 @@ public class MyGame : Game
 		p4.y = 200;
 		objectOwner.AddChild(p3);
 		objectOwner.AddChild(p4);
-		player = new Player("triangle.png", 4,2);
+		player = new Player("square.png", 4,2);
+		player.SetColor(0,255,0);
 		player.SetOrigin(player.width / 2, player.height / 2);
 		player.SetScaleXY(.5f,.5f);
 		player.x = width / 2;
@@ -48,7 +49,8 @@ public class MyGame : Game
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
-		objectOwner.Move(0, .2f);
+		objectOwner.Move(0, gravity);
+		gravity += 0.001f * (float)Time.deltaTime/ 1000;
 	}
 
 	static void Main()							// Main() is the first method that's called when the program is run
