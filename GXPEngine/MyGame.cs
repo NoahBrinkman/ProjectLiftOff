@@ -7,11 +7,11 @@ public class MyGame : Game
 	private Player player;
 	private Pivot objectOwner;
 	
-	public MyGame() : base(800, 600, false)		// Create a window that's 800x600 and NOT fullscreen
+	public MyGame() : base(1000, 600, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		objectOwner = new Pivot();
-		Platform p1 = new Platform("circle.png");
-		Platform p2 = new Platform("circle.png");
+		Platform p1 = new Platform("square.png");
+		Platform p2 = new Platform("square.png");
 		p1.SetOrigin(p1.width/2,p1.height/2);
 		p2.SetOrigin(p2.width/2,p2.height/2);
 		p1.SetScaleXY(2,2);
@@ -22,8 +22,8 @@ public class MyGame : Game
 		p2.y = 400;
 		objectOwner.AddChild(p1);
 		objectOwner.AddChild(p2);
-		Platform p3 = new Platform("circle.png");
-		Platform p4 = new Platform("circle.png");
+		Platform p3 = new Platform("square.png");
+		Platform p4 = new Platform("square.png");
 		p3.SetOrigin(p1.width/2,p1.height/2);
 		p4.SetOrigin(p2.width/2,p2.height/2);
 		p3.SetScaleXY(2,2);
@@ -40,6 +40,8 @@ public class MyGame : Game
 		player.x = width / 2;
 		player.y = height - 100;
 		AddChild(objectOwner);
+		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner);
+		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 	}
 

@@ -7,5 +7,6 @@
         {
             collider.isTrigger = true;
         }
+        
     }
 }

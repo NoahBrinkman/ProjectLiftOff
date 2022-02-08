@@ -15,6 +15,8 @@ namespace GXPEngine
             get { return (velocity >= 0.1f); }
         }
 
+        private Platform platformCurrentlyOn;
+        
         public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements) : base(fileName)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
@@ -97,9 +99,10 @@ namespace GXPEngine
                 if (!p.beenUsed)
                 {
                     p.beenUsed = true;
+                    platformCurrentlyOn = p;
                    
-                    onPlatform = true;
                 }
+                onPlatform = true;
             }
         }
     }
