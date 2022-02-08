@@ -6,7 +6,7 @@ public class MyGame : Game
 {
 	private Player player;
 	private Pivot objectOwner;
-	private float gravity = .2f;
+	private float gravity = .3f;
 	public MyGame() : base(1366, 768, true)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		objectOwner = new Pivot();
@@ -34,9 +34,9 @@ public class MyGame : Game
 		p4.y = 200;
 		objectOwner.AddChild(p3);
 		objectOwner.AddChild(p4);
-		player = new Player("square.png", 4,2);
+		player = new Player("square.png", 4,2,objectOwner);
 		player.SetColor(0,255,0);
-		player.SetOrigin(player.width / 2, player.height / 2);
+		player.SetOrigin(player.width / 2 + .1f, player.height / 2 +.1f);
 		player.SetScaleXY(.5f,.5f);
 		player.x = width / 2;
 		player.y = height - 100;
@@ -50,7 +50,8 @@ public class MyGame : Game
 	void Update()
 	{
 		objectOwner.Move(0, gravity);
-		gravity += 0.001f * (float)Time.deltaTime/ 1000;
+		gravity += 0.0045f * (float)Time.deltaTime/ 1000;
+			Console.WriteLine(gravity);
 	}
 
 	static void Main()							// Main() is the first method that's called when the program is run

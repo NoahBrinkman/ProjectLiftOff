@@ -24,15 +24,19 @@ namespace GXPEngine
                 timer = secondsPerPlatform;
             }
         }
-        
+
         private void Spawnplatform()
         {
             Platform p = new Platform("square.png");
-            p.SetOrigin(p.width/2,p.height/2);
-            p.SetScaleXY(2,2);
+            p.SetOrigin(p.width / 2, p.height / 2);
+            p.SetScaleXY(2, 2);
             p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);
             platformParent.AddChildAt(p, 0);
+            if (p.GetCollisions().Length > 0)
+            {
+                p.Destroy();
+                Spawnplatform();
+            }
         }
-
     }
 }

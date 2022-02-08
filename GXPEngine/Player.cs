@@ -16,11 +16,13 @@ namespace GXPEngine
         }
 
         private Platform platformCurrentlyOn;
+        private Pivot parentObject;
         
-        public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements) : base(fileName)
+        public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot) : base(fileName)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
             this.velocityDropOffIncrements = velocityDropOffIncrements;
+            parentObject = pivot;
         }
         
         void Update()
@@ -58,13 +60,13 @@ namespace GXPEngine
                     }
                 }
             }
-            if (Input.GetKey(Key.SPACE))
+            if (Input.GetKey(Key.SPACE) && !isAirborne)
             {
                 builtUpVelocity += velocityBuildUpIncrements * (float)Time.deltaTime / 1000;
-                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 5);
+                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 1.5f);
             }
 
-            if (Input.GetKeyUp(Key.SPACE))
+            if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
             {
                 velocity = builtUpVelocity;
                 builtUpVelocity = 0;
@@ -72,17 +74,17 @@ namespace GXPEngine
 
             if (velocity >= 0.1f)
             {
-                
+                if (y < 0 - parentObject.y - height / 8) velocity = 0;
                 Move(0,-velocity );
                 velocity -= onPlatform ? velocityDropOffIncrements *  (float)Time.deltaTime / 1000 * 3 : velocityDropOffIncrements *  (float)Time.deltaTime / 1000;
             }else if (!onPlatform)
             {
-                Console.WriteLine("you lose");
+               Console.WriteLine("you lose");
             }
 
             if (x > game.width)
             {
-               x = -width;
+               x = -game.width;
             }
 
             if (x < 0)
