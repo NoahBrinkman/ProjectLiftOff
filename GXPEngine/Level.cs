@@ -14,8 +14,6 @@ using TiledMapParser;
     {
         enemyMapFileName = fileName;
         Console.WriteLine(enemyMapFileName);
-        
-
     }
 
     /// <summary>
