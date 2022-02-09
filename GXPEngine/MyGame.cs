@@ -9,7 +9,7 @@ public class MyGame : Game
 	private float gravity = .3f;
 	public MyGame() : base(1366, 768, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
-		LevelNew level1 = new LevelNew("testMap.tmx");
+		Level level1 = new Level("testMap.tmx");
 		Scene scene1 = new Scene();
 		scene1.AddChild(level1);
 		SceneManager.instance.AddScene(scene1);
