@@ -7,11 +7,17 @@ public class MyGame : Game
 	private Player player;
 	private Pivot objectOwner;
 	private float gravity = .3f;
-	public MyGame() : base(1366, 768, true)		// Create a window that's 800x600 and NOT fullscreen
+	public MyGame() : base(1366, 768, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
+		LevelNew level1 = new LevelNew("testMap.tmx");
+		Scene scene1 = new Scene();
+		scene1.AddChild(level1);
+		SceneManager.instance.AddScene(scene1);
+
+
 		objectOwner = new Pivot();
-		Platform p1 = new Platform("square.png");
-		Platform p2 = new Platform("square.png");
+		Platform p1 = new Platform("square.png",1,1);
+		Platform p2 = new Platform("square.png",1,1);
 		p1.SetOrigin(p1.width/2,p1.height/2);
 		p2.SetOrigin(p2.width/2,p2.height/2);
 		p1.SetScaleXY(2,2);
@@ -22,8 +28,8 @@ public class MyGame : Game
 		p2.y = 400;
 		objectOwner.AddChild(p1);
 		objectOwner.AddChild(p2);
-		Platform p3 = new Platform("square.png");
-		Platform p4 = new Platform("square.png");
+		Platform p3 = new Platform("square.png",1,1);
+		Platform p4 = new Platform("square.png",1,1);
 		p3.SetOrigin(p1.width/2,p1.height/2);
 		p4.SetOrigin(p2.width/2,p2.height/2);
 		p3.SetScaleXY(2,2);
@@ -34,7 +40,7 @@ public class MyGame : Game
 		p4.y = 200;
 		objectOwner.AddChild(p3);
 		objectOwner.AddChild(p4);
-		player = new Player("square.png", 4,2,objectOwner);
+		player = new Player("square.png", 4,2,objectOwner,1,1,null);
 		player.SetColor(0,255,0);
 		player.SetOrigin(player.width / 2 + .1f, player.height / 2 +.1f);
 		player.SetScaleXY(.5f,.5f);
@@ -44,6 +50,8 @@ public class MyGame : Game
 		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,33,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
+
+		SceneManager.instance.LoadScene(0);
 	}
 
 	// For every game object, Update is called every frame, by the engine:

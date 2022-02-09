@@ -33,8 +33,8 @@ namespace GXPEngine
         {
           
             int r = Utils.Random(0, 100);
-            var p = r < percentageChanceOfCollapsable ? new CollapsingPlatform("square.png",secondsBeforeCollapse) 
-                : new Platform("square.png");
+            var p = r < percentageChanceOfCollapsable ? new CollapsingPlatform("square.png",secondsBeforeCollapse,1,1) 
+                : new Platform("square.png",1,1);
             p.SetOrigin(p.width / 2, p.height / 2);
                 p.SetScaleXY(2, 2);
                 p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);

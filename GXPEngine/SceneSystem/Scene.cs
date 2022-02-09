@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
+using GXPEngine;
+using TiledMapParser;
 
-namespace GXPEngine
-{
     /// <summary>
     /// This is a scene withing the game.
     /// A massive parent object that gets activated and deactivated by the scenemanager.
@@ -63,4 +62,3 @@ namespace GXPEngine
             GetChildren().ForEach(x => x.visible = true);
         }
     }
-}
