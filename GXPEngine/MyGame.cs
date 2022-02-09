@@ -48,7 +48,7 @@ public class MyGame : Game
 		player.y = height - 100;
 		AddChild(backGround);
 		AddChild(objectOwner);
-		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,33,3);
+		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,10,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 	}
