@@ -11,8 +11,7 @@ public class MyGame : Game
 	{
 		Level level1 = new Level("testMap.tmx");
 		Scene scene1 = new Scene();
-		scene1.AddChild(level1);
-		SceneManager.instance.AddScene(scene1);
+		SceneManager.instance.AddScene(level1);
 
 
 		objectOwner = new Pivot();
