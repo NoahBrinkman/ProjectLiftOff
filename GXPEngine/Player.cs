@@ -97,6 +97,14 @@ namespace GXPEngine
         {
             if (other is Platform)
             {
+                if (other is BoosterPlatform)
+                {
+                    rotation = other.rotation;
+                   
+                    BoosterPlatform b = (BoosterPlatform)other; 
+                    velocity *= b.speedMultiplier;
+                    b.beenUsed = true;
+                }
                 Platform p = (Platform)other;
                 if (!p.beenUsed)
                 {
