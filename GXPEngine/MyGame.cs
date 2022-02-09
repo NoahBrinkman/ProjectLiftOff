@@ -14,6 +14,12 @@ public class MyGame : Game
 	public MyGame() : base(1366, 768, false, true)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		game.targetFps = 60;
+		Level level1 = new Level("testMap.tmx");
+		Scene scene1 = new Scene();
+		scene1.AddChild(level1);
+		SceneManager.instance.AddScene(scene1);
+
+
 		objectOwner = new Pivot();
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		Platform p1 = new Platform("square.png");

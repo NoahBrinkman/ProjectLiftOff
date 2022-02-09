@@ -10,11 +10,11 @@ using TiledMapParser;
 
     TiledLoader levelMap;
     private string enemyMapFileName;
-    public Level(string fileName = " ")
+    public Level(string fileName = "")
     {
         enemyMapFileName = fileName;
         Console.WriteLine(enemyMapFileName);
-        levelMap = new TiledLoader(enemyMapFileName, this);
+        
 
     }
 
@@ -24,8 +24,9 @@ using TiledMapParser;
     protected override void Start()
     {
         isActive = true;
-        if (enemyMapFileName != " ")
+        if (enemyMapFileName != "")
         {
+            levelMap = new TiledLoader(enemyMapFileName, this);
             levelMap.addColliders = false;
             levelMap.rootObject = this;
             levelMap.LoadImageLayers();
