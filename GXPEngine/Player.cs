@@ -1,9 +1,9 @@
 ﻿using System;
+using GXPEngine;
+using TiledMapParser;
 
-namespace GXPEngine
-{
     
-    public class Player : Sprite
+    public class Player : AnimationSprite
     {
         private float builtUpVelocity;
         private float velocity;
@@ -18,6 +18,11 @@ namespace GXPEngine
         private Platform platformCurrentlyOn;
         private Pivot parentObject;
         public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot) : base(fileName)
+        {
+            
+        }
+
+        public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot,int cols, int rows, TiledObject obj) : base(fileName,cols,rows)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
             this.velocityDropOffIncrements = velocityDropOffIncrements;
@@ -118,4 +123,3 @@ namespace GXPEngine
             }
         }
     }
-}

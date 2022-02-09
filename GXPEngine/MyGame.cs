@@ -28,8 +28,8 @@ public class MyGame : Game
 		p2.y = 400;
 		objectOwner.AddChild(p1);
 		objectOwner.AddChild(p2);
-		Platform p3 = new Platform("square.png");
-		Platform p4 = new Platform("square.png");
+		Platform p3 = new Platform("square.png",1,1);
+		Platform p4 = new Platform("square.png",1,1);
 		p3.SetOrigin(p1.width/2,p1.height/2);
 		p4.SetOrigin(p2.width/2,p2.height/2);
 		p3.SetScaleXY(2,2);
@@ -56,6 +56,8 @@ public class MyGame : Game
 		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,10,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
+
+		SceneManager.instance.LoadScene(0);
 	}
 
 	// For every game object, Update is called every frame, by the engine:
