@@ -10,6 +10,7 @@ public class MyGame : Game
 	public MyGame() : base(1366, 768, true)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		objectOwner = new Pivot();
+		Sprite backGround = new Sprite("background-01.png", false, false);
 		Platform p1 = new Platform("square.png");
 		Platform p2 = new Platform("square.png");
 		p1.SetOrigin(p1.width/2,p1.height/2);
@@ -34,12 +35,18 @@ public class MyGame : Game
 		p4.y = 200;
 		objectOwner.AddChild(p3);
 		objectOwner.AddChild(p4);
+		BoosterPlatform b1 = new BoosterPlatform("triangle.png", 1.6f);
+		b1.rotation = -45;
+		b1.alpha = .5f;
+		b1.SetXY(width - 300, height /2);
+		objectOwner.AddChild(b1);
 		player = new Player("square.png", 4,2,objectOwner);
 		player.SetColor(0,255,0);
 		player.SetOrigin(player.width / 2 + .1f, player.height / 2 +.1f);
 		player.SetScaleXY(.5f,.5f);
 		player.x = width / 2;
 		player.y = height - 100;
+		AddChild(backGround);
 		AddChild(objectOwner);
 		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,33,3);
 		AddChild(platformSpawner);
