@@ -95,15 +95,15 @@ using TiledMapParser;
                 if (y < 0 - parentObject.y - height / 8) velocity = 0;
                 Move(0,-velocity );
                 velocity -= onPlatform ? velocityDropOffIncrements *  (float)Time.deltaTime / 1000 * 3 : velocityDropOffIncrements *  (float)Time.deltaTime / 1000;
-            }else if (!onPlatform)
+            }else if (!onPlatform || y > game.height - parentObject.y + width / 2)
             {
-                
-               //Console.WriteLine("you lose");
+                //Console.WriteLine("you lose");
+               SceneManager.instance.TryLoadNextScene();
             }
-
+            
             if (x > game.width)
             {
-               x = -game.width;
+               x = 0;
             }
 
             if (x < 0)
@@ -119,12 +119,20 @@ using TiledMapParser;
             if (other is Platform)
             {
                 Platform p = (Platform)other;
+                if (other is BoosterPlatform)
+                {
+                    BoosterPlatform b = (BoosterPlatform)other;
+                    velocity += 1;
+                    velocity *= b.speedMultiplier;
+                    rotation = b.rotation;
+                    other.LateDestroy();
+                }
                 if (!p.beenUsed)
                 {
                     if (velocity <= .1f)
                     {
-                     p.beenUsed = true;
-                     platformCurrentlyOn = p;   
+                        p.Use();
+                        platformCurrentlyOn = p;   
                     }
                 }
                 onPlatform = true;

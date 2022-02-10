@@ -132,6 +132,8 @@ namespace GXPEngine
         {
             scenes.ForEach(x => x.LateDestroy());
             scenes = new List<Scene>();
+            MyGame mg = (MyGame)game;
+            mg.SetUpScenes();
         }
         /// <summary>
         ///Reloads the entire game.

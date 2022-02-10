@@ -86,7 +86,7 @@ namespace GXPEngine
             }
 
             p.SetXY(Utils.Random(minimumRangeX, maximumRangeX), Utils.Random(minimumRangeY, maximumRangeY));
-            AddChild(p);
+            game.AddChild(p);
         }
         
         public Emitter SetVelocity(float minAngle, float maxAngle, float minSpeedPps, float maxSpeedPps)

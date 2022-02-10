@@ -28,7 +28,7 @@ using TiledMapParser;
         /// <summary>
         /// Remove all objects from this scene (softUnload means that objects will only be disabled)
         /// </summary>
-        public void UnLoadScene()
+        public virtual void UnLoadScene()
         {
             if (softUnload)
             {

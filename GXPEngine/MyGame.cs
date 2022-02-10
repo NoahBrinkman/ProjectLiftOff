@@ -7,22 +7,25 @@ public class MyGame : Game
 {
 	private Player player;
 	public float gravity = .3f;
-
+	public int currentScore;
 
 	public MyGame() : base(1366, 768, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		AddChild(backGround);
-
-		List<string> platformMaps = new List<string>();
-		platformMaps.Add("testMapa.tmx");
-		platformMaps.Add("map1.tmx");
-		Level level1 = new Level(6, platformMaps);
-		SceneManager.instance.AddScene(level1);
-		SceneManager.instance.LoadScene(0);
+		SetUpScenes();
 	}
 
-
+	public void SetUpScenes()
+	{
+		MainMenuScene menuScene = new MainMenuScene();
+		SceneManager.instance.AddScene(menuScene);
+		Level level1 = new Level();
+		SceneManager.instance.AddScene(level1);
+		GameOverScene gameOverScene = new GameOverScene();
+		SceneManager.instance.AddScene(gameOverScene);
+		SceneManager.instance.LoadScene(0);
+	}
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
