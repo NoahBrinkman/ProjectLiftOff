@@ -14,7 +14,6 @@ using TiledMapParser;
             Initiazlize(obj);
         }
 
-
         void Initiazlize(TiledObject obj = null)
         {
             SetOrigin(width / 2, height / 2);

@@ -18,6 +18,7 @@ public class MyGame : Game
 		Scene scene1 = new Scene();
 		SceneManager.instance.AddScene(level1);
 
+		Sprite backGround = new Sprite("background-01.png", false, false);
 
 		objectOwner = new Pivot();
 		Sprite backGround = new Sprite("background-01.png", false, false);
@@ -62,12 +63,19 @@ public class MyGame : Game
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 
-		SceneManager.instance.LoadScene(0);
+		scoreUI = new EasyDraw(100, 30, false);
+		scoreUI.SetXY(width - (scoreUI.width), 30);
+		AddChild(scoreUI);
+
+
+		//SceneManager.instance.LoadScene(0);
 	}
+
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
+		scoreUI.Text("Score: " + score, true);
 		objectOwner.Move(0, gravity);
 		gravity += 0.000045f * (1 + Mathf.Pow((float)Time.deltaTime/ 1000, gravity));
 		//game.Destroy();

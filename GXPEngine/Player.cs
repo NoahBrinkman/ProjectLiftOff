@@ -1,5 +1,6 @@
 ﻿using System;
 using GXPEngine;
+using GXPEngine.Core;
 using TiledMapParser;
 
     
@@ -10,6 +11,7 @@ using TiledMapParser;
         private float velocityBuildUpIncrements;
         private float velocityDropOffIncrements;
         private bool onPlatform = true;
+        int score;
         private bool isAirborne
         {
             get { return (velocity >= 0.1f); }
@@ -28,6 +30,8 @@ using TiledMapParser;
             this.velocityDropOffIncrements = velocityDropOffIncrements;
             parentObject = pivot;
         }
+
+
         
         void Update()
         {
@@ -94,7 +98,7 @@ using TiledMapParser;
             if (x < 0)
             {
                 x = game.width;
-            }
+            }           
         }
 
         private void OnCollision(GameObject other)

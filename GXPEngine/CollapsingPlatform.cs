@@ -19,6 +19,10 @@ using TiledMapParser;
         void Initialize(TiledObject obj = null)
         {
             SetColor(255, 255, 0);
+            if(obj != null)
+            {
+                secondsBeforeCollapse = obj.GetFloatProperty("secondsBeforeCollapse", 2.5f);
+            }
         }
 
         void Update()
