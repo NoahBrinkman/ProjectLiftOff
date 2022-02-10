@@ -11,12 +11,12 @@ using TiledMapParser;
         private float velocityBuildUpIncrements;
         private float velocityDropOffIncrements;
         private bool onPlatform = true;
+        private bool canMove = true;
         int score;
         private bool isAirborne
         {
             get { return (velocity >= 0.1f); }
         }
-
         private Platform platformCurrentlyOn;
         private Pivot parentObject;
 
@@ -31,8 +31,21 @@ using TiledMapParser;
             this.velocityDropOffIncrements = velocityDropOffIncrements;
             parentObject = pivot;
         }
+        
+    /*
+        public void CollisionCheck()
+        {
+            GameObject[] collisions = GetCollisions();
+            for(int i =0; i < collisions.Length; i++)
+            {
+                if(collisions[i] is Jetpack)
+                {
+                    ((Jetpack)collisions[i]).ShootUp();
+                }
+            }
 
-
+        }
+    */
         
         void Update()
         {
@@ -40,7 +53,7 @@ using TiledMapParser;
             {
                 onPlatform = false;
             }
-            if (Input.GetKey(Key.A))
+            if (Input.GetKey(Key.A) && canMove)
             {
                 if (rotation >= -110)
                 {
@@ -55,7 +68,7 @@ using TiledMapParser;
                 }
             }
 
-            if (Input.GetKey(Key.D))
+            if (Input.GetKey(Key.D) && canMove)
             {
                 if (rotation <= 110)
                 {
@@ -69,7 +82,7 @@ using TiledMapParser;
                     }
                 }
             }
-            if (Input.GetKey(Key.SPACE) && !isAirborne)
+            if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
                 builtUpVelocity += velocityBuildUpIncrements * (float)Time.deltaTime / 1000;
                 builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 1.5f);
@@ -88,7 +101,8 @@ using TiledMapParser;
                 velocity -= onPlatform ? velocityDropOffIncrements *  (float)Time.deltaTime / 1000 * 3 : velocityDropOffIncrements *  (float)Time.deltaTime / 1000;
             }else if (!onPlatform)
             {
-               Console.WriteLine("you lose");
+                
+               //Console.WriteLine("you lose");
             }
 
             if (x > game.width)
@@ -120,6 +134,11 @@ using TiledMapParser;
                     }
                 }
                 onPlatform = true;
+            }
+            if(other is Jetpack)
+            {
+                Console.WriteLine("Jetpack taken");
+                other.LateDestroy();
             }
         }
     }

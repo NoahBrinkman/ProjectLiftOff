@@ -41,6 +41,7 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Jetpack.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MathFunctions.cs" />
     <Compile Include="MyGame.cs" />
