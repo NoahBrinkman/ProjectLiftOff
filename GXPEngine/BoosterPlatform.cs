@@ -4,25 +4,13 @@ using TiledMapParser;
     public class BoosterPlatform : Platform
     {
         public float speedMultiplier { get; private set; }
-
-    public BoosterPlatform(TiledObject obj = null) : base(null, 1, 1)
-        {
-            Initialize(obj);
-        }
         
-        public BoosterPlatform(string fileName, float speedMultiplier,int cols, int rows, TiledObject obj = null) : base(fileName,cols,rows)
+        public BoosterPlatform(string fileName, float speedMultiplier,int cols = 1, int rows = 1, TiledObject obj = null) : base(fileName,cols,rows)
         {
-            Initialize(obj);
+
             this.speedMultiplier = speedMultiplier;
         }
 
-        void Initialize(TiledObject obj = null)
-        {
-            if(obj != null)
-            {
-                 speedMultiplier = obj.GetFloatProperty("speedMultiplier", 1);
-            }
-        }
 
         void Update()
         {

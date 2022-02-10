@@ -5,18 +5,34 @@ using System.Text;
 using GXPEngine;
 using TiledMapParser;
 
+public class PlatformMap
+{
+    public TiledLoader loader;
+    public bool loaded = false;
+
+    public PlatformMap(string fileName, GameObject rootObject)
+    {
+        loader = new TiledLoader(fileName, rootObject);
+    }
+}
 class Level : Scene
 {
     private Player player;
     private Pivot objectOwner;
     private float gravity = .3f;
-
+    public int score = 0;
     TiledLoader levelMap;
-    private string enemyMapFileName;
-    public Level(string fileName = "")
+    private List<PlatformMap> tiledLoaders;
+    private float timeBeforeNextChunk;
+    private float timer;
+    
+    
+    EasyDraw scoreUI;
+    public Level(float startTimeBeforeNextChunk, List<string> fileNames = null)
     {
-        enemyMapFileName = fileName;
-        Console.WriteLine(enemyMapFileName);
+
+        this.timeBeforeNextChunk = startTimeBeforeNextChunk;
+        timer = startTimeBeforeNextChunk;
     }
 
     /// <summary>
@@ -25,18 +41,21 @@ class Level : Scene
     protected override void Start()
     {
         isActive = true;
-        if (enemyMapFileName != "")
-        {
-            levelMap = new TiledLoader(enemyMapFileName, this);
-            levelMap.addColliders = false;
-            levelMap.rootObject = this;
-            levelMap.LoadImageLayers();
-
-            levelMap.rootObject = this;
-            levelMap.LoadTileLayers();
-            levelMap.autoInstance = true;
-            levelMap.LoadObjectGroups();
-        }
+        objectOwner = new Pivot();
+        player = new Player("square.png", 4,2,objectOwner,1,1,null);
+        player.SetColor(0,255,0);
+        player.SetOrigin(player.width / 2 + .1f, player.height / 2 +.1f);
+        player.SetScaleXY(.5f,.5f);
+        player.x = game.width / 2;
+        player.y = game.height - 100;
+        AddChild(objectOwner);
+        objectOwner.AddChild(player);
+        PlatformSpawner platformSpawner = new PlatformSpawner(1.2f, objectOwner, 10, 3, 5);
+        AddChild(platformSpawner);
+        // Score UI 
+        scoreUI = new EasyDraw(200, 30, false);
+        scoreUI.SetXY(game.width - (scoreUI.width), 30);
+        AddChild(scoreUI);
     }
 
     /// <summary>
@@ -51,7 +70,10 @@ class Level : Scene
         {
             return;
         }
+        scoreUI.Text("HIGHSCORE: " + score, true);
         //Console.WriteLine(gravity);
+        objectOwner.Move(0, gravity);
+        gravity += 0.000045f * (1 + Mathf.Pow((float)Time.deltaTime/ 1000, gravity)); 
     }
     /// <summary>
     /// Remove an enemy and possibly lives
