@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoInput.cs" />
     <Compile Include="BoosterPlatform.cs" />
     <Compile Include="CollapsingPlatform.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />

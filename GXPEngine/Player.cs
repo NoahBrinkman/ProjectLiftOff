@@ -19,11 +19,7 @@ using TiledMapParser;
         }
         private Platform platformCurrentlyOn;
         private Pivot parentObject;
-        public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot) : base(fileName)
-        {
-            
-        }
-
+        
         public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot,int cols, int rows, TiledObject obj) : base(fileName,cols,rows)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
@@ -122,15 +118,6 @@ using TiledMapParser;
         {
             if (other is Platform)
             {
-                if (other is BoosterPlatform)
-                {
-                    rotation = other.rotation;
-                   
-                    BoosterPlatform b = (BoosterPlatform)other;
-                    velocity += 1;
-                    velocity *= b.speedMultiplier;
-                    b.beenUsed = true;
-                }
                 Platform p = (Platform)other;
                 if (!p.beenUsed)
                 {
