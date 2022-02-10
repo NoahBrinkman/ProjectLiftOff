@@ -7,12 +7,16 @@ public class MyGame : Game
 	private Player player;
 	private Pivot objectOwner;
 	private float gravity = .3f;
+
+   	public int score = 0;
+	EasyDraw scoreUI;
 	public MyGame() : base(1366, 768, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		Level level1 = new Level("testMap.tmx");
 		Scene scene1 = new Scene();
 		SceneManager.instance.AddScene(level1);
 
+		Sprite backGround = new Sprite("background-01.png", false, false);
 
 		objectOwner = new Pivot();
 		Platform p1 = new Platform("square.png",1,1);
@@ -45,17 +49,25 @@ public class MyGame : Game
 		player.SetScaleXY(.5f,.5f);
 		player.x = width / 2;
 		player.y = height - 100;
+		AddChild(backGround);
 		AddChild(objectOwner);
 		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,33,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 
-		SceneManager.instance.LoadScene(0);
+		scoreUI = new EasyDraw(100, 30, false);
+		scoreUI.SetXY(width - (scoreUI.width), 30);
+		AddChild(scoreUI);
+
+
+		//SceneManager.instance.LoadScene(0);
 	}
+
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
+		scoreUI.Text("Score: " + score, true);
 		objectOwner.Move(0, gravity);
 		gravity += 0.0045f * (float)Time.deltaTime/ 1000;
 			Console.WriteLine(gravity);
