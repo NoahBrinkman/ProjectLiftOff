@@ -5,8 +5,8 @@ using System.Text;
 using GXPEngine;
 using TiledMapParser;
 
-    class Level : Scene
-    {
+class Level : Scene
+{
 
     TiledLoader levelMap;
     private string enemyMapFileName;
