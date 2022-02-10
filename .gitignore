@@ -8,3 +8,6 @@ GXPEngine.userprefs
 
 # EXE files
 *.exe
+*.pdb
+
+GXPEngine/LevelNew.cs

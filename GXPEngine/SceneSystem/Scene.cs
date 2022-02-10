@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
+using GXPEngine;
+using TiledMapParser;
 
-namespace GXPEngine
-{
     /// <summary>
     /// This is a scene withing the game.
     /// A massive parent object that gets activated and deactivated by the scenemanager.
@@ -29,7 +28,7 @@ namespace GXPEngine
         /// <summary>
         /// Remove all objects from this scene (softUnload means that objects will only be disabled)
         /// </summary>
-        public void UnLoadScene()
+        public virtual void UnLoadScene()
         {
             if (softUnload)
             {
@@ -63,4 +62,3 @@ namespace GXPEngine
             GetChildren().ForEach(x => x.visible = true);
         }
     }
-}
