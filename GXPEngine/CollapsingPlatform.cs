@@ -1,14 +1,14 @@
-﻿namespace GXPEngine
-{
+﻿using GXPEngine;
+using TiledMapParser;
     public class CollapsingPlatform : Platform
     {
         private float secondsBeforeCollapse;
         private float timer;
-        
-        public CollapsingPlatform(string fileName, float secondsBeforeCollapse) : base(fileName)
+        private float gravity = 0.3f;
+        public CollapsingPlatform(string fileName, float secondsBeforeCollapse,int cols = 1,int rows = 1, TiledObject obj = null) : base(fileName,cols,rows)
         {
+            SetColor(255, 255, 0);
             this.secondsBeforeCollapse = secondsBeforeCollapse;
-            SetColor(255,255,0);
             timer = secondsBeforeCollapse;
         }
 
@@ -25,4 +25,3 @@
         }
         
     }
-}

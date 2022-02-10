@@ -42,12 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArduinoInput.cs" />
     <Compile Include="BoosterPlatform.cs" />
     <Compile Include="CollapsingPlatform.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="MathFunctions.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
@@ -94,6 +94,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="SceneSystem\Scene.cs" />
     <Compile Include="SceneSystem\SceneManager.cs" />
+    <Compile Include="SwitchMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

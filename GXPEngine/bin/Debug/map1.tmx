@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="86" height="57" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="86" height="57" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="16">
  <layer id="1" name="Tile Layer 1" width="86" height="57">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -61,4 +61,20 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="3" name="Platforms" offsetx="1.16476" offsety="1.16476">
+  <object id="1" type="Platform" x="-23.5476" y="-160.652" width="105.333" height="100"/>
+  <object id="2" type="Platform" x="140.683" y="28.0387" width="105.333" height="100"/>
+  <object id="3" type="Platform" x="641.528" y="-116.391" width="105.333" height="100"/>
+  <object id="4" type="Platform" x="162.813" y="-265.48" width="105.333" height="100"/>
+  <object id="5" type="Platform" x="664.823" y="-338.86" width="105.333" height="100"/>
+  <object id="6" type="Platform" x="1129.56" y="-405.251" width="105.333" height="100"/>
+  <object id="7" type="Platform" x="484.286" y="69.9699" width="105.333" height="100"/>
+  <object id="8" type="Platform" x="820.901" y="-214.231" width="105.333" height="100"/>
+  <object id="9" type="Platform" x="1102.77" y="-172.299" width="105.333" height="100"/>
+  <object id="10" type="Platform" x="981.637" y="122.384" width="105.333" height="100"/>
+  <object id="11" type="Platform" x="614.739" y="-492.607" width="105.333" height="100"/>
+  <object id="12" type="Platform" x="69.6329" y="-494.937" width="105.333" height="100"/>
+  <object id="13" type="Platform" x="384.117" y="-497.266" width="105.333" height="100"/>
+  <object id="14" type="Platform" x="456.332" y="-190.935" width="105.333" height="100"/>
+ </objectgroup>
 </map>
