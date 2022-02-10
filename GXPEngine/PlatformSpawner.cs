@@ -50,7 +50,7 @@ namespace GXPEngine
                 if (p.GetCollisions().Length > 0)
                 {
                     p.Destroy();
-                    Spawnplatform();
+                    //Spawnplatform();
                 }
             
         }

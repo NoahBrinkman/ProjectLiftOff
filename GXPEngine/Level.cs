@@ -7,6 +7,9 @@ using TiledMapParser;
 
 class Level : Scene
 {
+    private Player player;
+    private Pivot objectOwner;
+    private float gravity = .3f;
 
     TiledLoader levelMap;
     private string enemyMapFileName;
@@ -30,6 +33,7 @@ class Level : Scene
             levelMap.LoadImageLayers();
 
             levelMap.rootObject = this;
+            levelMap.LoadTileLayers();
             levelMap.autoInstance = true;
             levelMap.LoadObjectGroups();
         }
@@ -47,9 +51,7 @@ class Level : Scene
         {
             return;
         }
-        // Console.WriteLine(enemiesLeft);
-        // SceneManager.instance.TryLoadNextScene();
-
+        //Console.WriteLine(gravity);
     }
     /// <summary>
     /// Remove an enemy and possibly lives

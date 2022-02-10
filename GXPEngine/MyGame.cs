@@ -17,11 +17,8 @@ public class MyGame : Game
 		Level level1 = new Level("testMap.tmx");
 		Scene scene1 = new Scene();
 		SceneManager.instance.AddScene(level1);
-
-		Sprite backGround = new Sprite("background-01.png", false, false);
-
-		Jetpack jetpackTest = new Jetpack("triangle.png",1,1,null);
-		jetpackTest.SetXY(200, 200);
+		Level level2 = new Level("Map1.tmx");
+		SceneManager.instance.AddScene(level2);
 
 		objectOwner = new Pivot();
 		Sprite backGround = new Sprite("background-01.png", false, false);
@@ -60,18 +57,18 @@ public class MyGame : Game
 		player.SetScaleXY(.5f,.5f);
 		player.x = width / 2;
 		player.y = height - 100;
-		AddChild(backGround);
 		AddChild(objectOwner);
 		PlatformSpawner platformSpawner = new PlatformSpawner(2.5f,objectOwner,10,3);
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
-
+		
+		// Score UI 
 		scoreUI = new EasyDraw(200, 30, false);
 		scoreUI.SetXY(width - (scoreUI.width), 30);
 		AddChild(scoreUI);
 
-
-		//SceneManager.instance.LoadScene(0);
+		
+		SceneManager.instance.LoadScene(0);
 	}
 
 
