@@ -18,7 +18,10 @@ using TiledMapParser;
 
         void Initialize(TiledObject obj = null)
         {
-            
+            if(obj != null)
+            {
+                 speedMultiplier = obj.GetFloatProperty("speedMultiplier", 1);
+            }
         }
 
         void Update()
