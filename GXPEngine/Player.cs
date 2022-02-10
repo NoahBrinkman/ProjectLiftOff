@@ -6,6 +6,7 @@ using TiledMapParser;
     
     public class Player : AnimationSprite
     {
+        
         private float builtUpVelocity;
         private float velocity;
         private float velocityBuildUpIncrements;
@@ -32,24 +33,25 @@ using TiledMapParser;
             parentObject = pivot;
         }
         
-    /*
+    
         public void CollisionCheck()
         {
             GameObject[] collisions = GetCollisions();
             for(int i =0; i < collisions.Length; i++)
             {
-                if(collisions[i] is Jetpack)
+                if(collisions[i] is SwitchMap)
                 {
-                    ((Jetpack)collisions[i]).ShootUp();
+                    int r = Utils.Random(1, 2);
+                    SceneManager.instance.LoadScene(r);
                 }
             }
 
         }
-    */
         
         void Update()
         {
-            if (GetCollisions().Length == 0)
+           //Move(0, ((MyGame)game).gravity);
+        if (GetCollisions().Length == 0)
             {
                 onPlatform = false;
             }
@@ -113,8 +115,10 @@ using TiledMapParser;
             if (x < 0)
             {
                 x = game.width;
-            }           
-        }
+            }
+
+        CollisionCheck();
+    }
 
         private void OnCollision(GameObject other)
         {
@@ -134,11 +138,6 @@ using TiledMapParser;
                     }
                 }
                 onPlatform = true;
-            }
-            if(other is Jetpack)
-            {
-                Console.WriteLine("Jetpack taken");
-                other.LateDestroy();
             }
         }
     }

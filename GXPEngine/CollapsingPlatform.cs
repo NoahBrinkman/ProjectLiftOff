@@ -4,7 +4,7 @@ using TiledMapParser;
     {
         private float secondsBeforeCollapse;
         private float timer;
-
+        private float gravity = 0.3f;
         public CollapsingPlatform(TiledObject obj = null) : base("square.png", 1, 1)
         {
             Initialize(obj);
@@ -27,7 +27,8 @@ using TiledMapParser;
 
         void Update()
         {
-            if (beenUsed)
+            Move(0, ((MyGame)game).gravity);
+        if (beenUsed)
             {
                 timer -= (float)Time.deltaTime / 1000;
                 if (timer <= 0)
