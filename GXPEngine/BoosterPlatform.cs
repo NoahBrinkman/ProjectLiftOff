@@ -4,7 +4,7 @@
     {
         public float speedMultiplier { get; private set; }
         
-        public BoosterPlatform(string fileName, float speedMultiplier) : base(fileName)
+        public BoosterPlatform(string fileName, float speedMultiplier, int percentageToSpawn = 10) : base(fileName)
         {
             this.speedMultiplier = speedMultiplier;
         }

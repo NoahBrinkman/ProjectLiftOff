@@ -17,7 +17,6 @@ namespace GXPEngine
 
         private Platform platformCurrentlyOn;
         private Pivot parentObject;
-        
         public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot) : base(fileName)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
@@ -101,7 +100,8 @@ namespace GXPEngine
                 {
                     rotation = other.rotation;
                    
-                    BoosterPlatform b = (BoosterPlatform)other; 
+                    BoosterPlatform b = (BoosterPlatform)other;
+                    velocity += 1;
                     velocity *= b.speedMultiplier;
                     b.beenUsed = true;
                 }

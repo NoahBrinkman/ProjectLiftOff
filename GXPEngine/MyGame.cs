@@ -1,4 +1,7 @@
-using System;									// System contains a lot of default C# libraries 
+using System;
+using System.IO;
+using System.IO.Ports;
+using System.Threading;								// System contains a lot of default C# libraries 
 using GXPEngine;                                // GXPEngine contains the engine
 using System.Drawing;							// System.Drawing contains drawing tools such as Color definitions
 
@@ -7,8 +10,10 @@ public class MyGame : Game
 	private Player player;
 	private Pivot objectOwner;
 	private float gravity = .3f;
-	public MyGame() : base(1366, 768, true)		// Create a window that's 800x600 and NOT fullscreen
+	//public ArduinoInput ardInput;
+	public MyGame() : base(1366, 768, false, true)		// Create a window that's 800x600 and NOT fullscreen
 	{
+		game.targetFps = 60;
 		objectOwner = new Pivot();
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		Platform p1 = new Platform("square.png");
@@ -57,12 +62,12 @@ public class MyGame : Game
 	void Update()
 	{
 		objectOwner.Move(0, gravity);
-		gravity += 0.0045f * (float)Time.deltaTime/ 1000;
-			Console.WriteLine(gravity);
+		gravity += 0.000045f * (1 + Mathf.Pow((float)Time.deltaTime/ 1000, gravity));
+		//game.Destroy();
 	}
 
 	static void Main()							// Main() is the first method that's called when the program is run
-	{
+	{ 
 		new MyGame().Start();					// Create a "MyGame" and start it
 	}
 }
