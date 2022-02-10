@@ -20,6 +20,9 @@ public class MyGame : Game
 
 		Sprite backGround = new Sprite("background-01.png", false, false);
 
+		Jetpack jetpackTest = new Jetpack("triangle.png",1,1,null);
+		jetpackTest.SetXY(200, 200);
+
 		objectOwner = new Pivot();
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		Platform p1 = new Platform("square.png");
@@ -63,7 +66,7 @@ public class MyGame : Game
 		AddChild(platformSpawner);
 		objectOwner.AddChild(player);
 
-		scoreUI = new EasyDraw(100, 30, false);
+		scoreUI = new EasyDraw(200, 30, false);
 		scoreUI.SetXY(width - (scoreUI.width), 30);
 		AddChild(scoreUI);
 
@@ -75,7 +78,7 @@ public class MyGame : Game
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
-		scoreUI.Text("Score: " + score, true);
+		scoreUI.Text("HIGHSCORE: " + score, true);
 		objectOwner.Move(0, gravity);
 		gravity += 0.000045f * (1 + Mathf.Pow((float)Time.deltaTime/ 1000, gravity));
 		//game.Destroy();
