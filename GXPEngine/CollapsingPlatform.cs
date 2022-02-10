@@ -5,30 +5,16 @@ using TiledMapParser;
         private float secondsBeforeCollapse;
         private float timer;
         private float gravity = 0.3f;
-        public CollapsingPlatform(TiledObject obj = null) : base("square.png", 1, 1)
+        public CollapsingPlatform(string fileName, float secondsBeforeCollapse,int cols = 1,int rows = 1, TiledObject obj = null) : base(fileName,cols,rows)
         {
-            Initialize(obj);
-        }
-        public CollapsingPlatform(string fileName, float secondsBeforeCollapse,int cols,int rows, TiledObject obj = null) : base(fileName,cols,rows)
-        {         
-            Initialize(obj);
+            SetColor(255, 255, 0);
             this.secondsBeforeCollapse = secondsBeforeCollapse;
             timer = secondsBeforeCollapse;
         }
 
-        void Initialize(TiledObject obj = null)
-        {
-            SetColor(255, 255, 0);
-            if(obj != null)
-            {
-                secondsBeforeCollapse = obj.GetFloatProperty("secondsBeforeCollapse", 2.5f);
-            }
-        }
-
         void Update()
         {
-            Move(0, ((MyGame)game).gravity);
-        if (beenUsed)
+            if (beenUsed)
             {
                 timer -= (float)Time.deltaTime / 1000;
                 if (timer <= 0)

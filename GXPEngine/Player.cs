@@ -13,7 +13,6 @@ using TiledMapParser;
         private float velocityDropOffIncrements;
         private bool onPlatform = true;
         private bool canMove = true;
-        int score;
         private bool isAirborne
         {
             get { return (velocity >= 0.1f); }

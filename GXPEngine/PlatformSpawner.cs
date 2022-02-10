@@ -52,7 +52,8 @@ namespace GXPEngine
                     p.Destroy();
                     //Spawnplatform();
                 }
-            
+
+            }
         }
     }
 }
