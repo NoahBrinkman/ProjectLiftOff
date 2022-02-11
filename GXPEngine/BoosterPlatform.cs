@@ -7,6 +7,7 @@
         public BoosterPlatform(string fileName, float speedMultiplier, int percentageToSpawn = 10) : base(fileName)
         {
             this.speedMultiplier = speedMultiplier;
+            SetScaleXY(.75f);
         }
 
         void Update()

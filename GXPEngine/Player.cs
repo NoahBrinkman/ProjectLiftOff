@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using GXPEngine;
 using GXPEngine.Core;
 using TiledMapParser;
@@ -8,12 +9,13 @@ using TiledMapParser;
     {
         
         private float builtUpVelocity;
-        private float velocity;
+        public float velocity { get; private set; }
         private float velocityBuildUpIncrements;
         private float velocityDropOffIncrements;
         private bool onPlatform = true;
         private bool canMove = true;
-        private bool isAirborne
+        public Action<string> OnJump;
+        public bool isAirborne
         {
             get { return (velocity >= 0.1f); }
         }
@@ -44,6 +46,10 @@ using TiledMapParser;
         
         void Update()
         {
+            if (!canMove)
+            {
+                return;
+            }
            //Move(0, ((MyGame)game).gravity);
         if (GetCollisions().Length == 0)
             {
@@ -86,8 +92,11 @@ using TiledMapParser;
 
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
             {
+                OnJump?.Invoke("Jump");
                 velocity = builtUpVelocity;
                 builtUpVelocity = 0;
+                
+                //Play jump effect
             }
 
             if (velocity >= 0.1f)
@@ -98,7 +107,9 @@ using TiledMapParser;
             }else if (!onPlatform || y > game.height - parentObject.y + width / 2)
             {
                 //Console.WriteLine("you lose");
-               SceneManager.instance.TryLoadNextScene();
+                Level level = (Level)SceneManager.instance.GetActiveScene();
+                level.LostLevel();
+                canMove = false;
             }
             
             if (x > game.width)
@@ -118,6 +129,7 @@ using TiledMapParser;
         {
             if (other is Platform)
             {
+                bool touchingObstacle = false;
                 Platform p = (Platform)other;
                 if (other is BoosterPlatform)
                 {
@@ -126,6 +138,12 @@ using TiledMapParser;
                     velocity *= b.speedMultiplier;
                     rotation = b.rotation;
                     other.LateDestroy();
+                }else if (other is ObstaclePlatform)
+                {
+                    velocity = 0;
+                    ObstaclePlatform o = (ObstaclePlatform)other;
+                    o.beenUsed = true;
+                    touchingObstacle = true;
                 }
                 if (!p.beenUsed)
                 {
@@ -135,7 +153,7 @@ using TiledMapParser;
                         platformCurrentlyOn = p;   
                     }
                 }
-                onPlatform = true;
+                if(!touchingObstacle) onPlatform = true;
             }
         }
     }

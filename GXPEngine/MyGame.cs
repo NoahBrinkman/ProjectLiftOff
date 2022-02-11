@@ -9,7 +9,12 @@ public class MyGame : Game
 	public float gravity = .3f;
 	public int currentScore;
 
-	public MyGame() : base(1366, 768, false)		// Create a window that's 800x600 and NOT fullscreen
+	private Dictionary<string, Sound> soundLibrary = new Dictionary<string, Sound>()
+	{
+		{"Jump", new Sound("Jump.wav")},
+		{"GameOver", new Sound("GameOver.wav")}
+	};
+	public MyGame() : base(1366, 768, true)	
 	{
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		AddChild(backGround);
@@ -20,8 +25,8 @@ public class MyGame : Game
 	{
 		MainMenuScene menuScene = new MainMenuScene();
 		SceneManager.instance.AddScene(menuScene);
-		Level level1 = new Level();
-		SceneManager.instance.AddScene(level1);
+		Level level = new Level(.3f,0.000045f,soundLibrary);
+		SceneManager.instance.AddScene(level);
 		GameOverScene gameOverScene = new GameOverScene();
 		SceneManager.instance.AddScene(gameOverScene);
 		SceneManager.instance.LoadScene(0);

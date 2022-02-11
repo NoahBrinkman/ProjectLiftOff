@@ -3,7 +3,7 @@
     public class GameOverScene : Scene
     {
         private EasyDraw canvas;
-        private float timer = 10;
+        private float timer = 5;
         
         
         public GameOverScene() : base()
