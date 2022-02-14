@@ -26,13 +26,11 @@ class Level : Scene
     private float timer = 1.5f;
     EasyDraw scoreUI;
     private SFXHandler sfxHandler;
-    Sprite powerArrow;
     public Level(float startingGravity, float gravityIncrements, Dictionary<string,Sound> soundLibrary): base()
     {
         this.gravity = startingGravity;
         this.gravityIncrements = gravityIncrements;
         sfxHandler = new SFXHandler(soundLibrary, .4f);
-        powerArrow = new Sprite("powerArrow.png");
     }
 
     /// <summary>
@@ -40,13 +38,6 @@ class Level : Scene
     /// </summary>
     /// 
 
-    public void drawArrow(float scaleValue, float xPos, float yPos)
-    {
-        Math.Max(scaleValue,1);
-        AddChild(powerArrow);
-        powerArrow.SetXY(xPos, yPos);
-        powerArrow.scale = scaleValue;
-    }
     protected override void Start()
     {
         isActive = true;
