@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoosterPlatform.cs" />
+    <Compile Include="BouncyPlatform.cs" />
     <Compile Include="CollapsingPlatform.cs" />
     <Compile Include="GameOverScene.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading;
 using GXPEngine;
 using GXPEngine.Core;
@@ -12,6 +13,7 @@ using TiledMapParser;
         public float velocity { get; private set; }
         private float velocityBuildUpIncrements;
         private float velocityDropOffIncrements;
+        private float maxBuiltUpVelocity => velocityBuildUpIncrements * 1.5f;
         private bool onPlatform = true;
         private bool canMove = true;
         public Action<string> OnJump;
@@ -22,40 +24,42 @@ using TiledMapParser;
         private Platform platformCurrentlyOn;
         private Pivot parentObject;
         
+        private Sprite speedIndicator;
+        private ParticleColor indicatorColor;
+        private Color minColor;
+        private Color maxColor;
         public Player(string fileName, float velocityBuildUpIncrements, float velocityDropOffIncrements, Pivot pivot,int cols, int rows, TiledObject obj) : base(fileName,cols,rows)
         {
             this.velocityBuildUpIncrements = velocityBuildUpIncrements;
             this.velocityDropOffIncrements = velocityDropOffIncrements;
             parentObject = pivot;
+            speedIndicator = new Sprite("Indicator.png",false,false);
+            speedIndicator.SetOrigin(speedIndicator.width / 2, speedIndicator.height / 2);
+            speedIndicator.SetScaleXY(.4f);
+            speedIndicator.SetXY(0, height / 2 + 20);
+            indicatorColor = new ParticleColor(255, 255, 255, 255);
+            game.AddChild(speedIndicator);
+            minColor = Color.White;
+            maxColor = Color.DarkRed;
+            speedIndicator.visible = false;
+            Console.WriteLine(maxBuiltUpVelocity);
         }
         
-    
-        public void CollisionCheck()
-        {
-            GameObject[] collisions = GetCollisions();
-            for(int i =0; i < collisions.Length; i++)
-            {
-                if(collisions[i] is SwitchMap)
-                {
-                    int r = Utils.Random(1, 2);
-                    SceneManager.instance.LoadScene(r);
-                }
-            }
-
-        }
+        
         
         void Update()
         {
+            speedIndicator.SetXY(x, y +parentObject.y + height / 2 + 20);
             if (!canMove)
             {
                 return;
             }
-           //Move(0, ((MyGame)game).gravity);
+
         if (GetCollisions().Length == 0)
             {
                 onPlatform = false;
             }
-            if (Input.GetKey(Key.A) && canMove)
+            if (Input.GetKey(Key.D) && canMove)
             {
                 if (rotation >= -110)
                 {
@@ -70,7 +74,7 @@ using TiledMapParser;
                 }
             }
 
-            if (Input.GetKey(Key.D) && canMove)
+            if (Input.GetKey(Key.A) && canMove)
             {
                 if (rotation <= 110)
                 {
@@ -87,7 +91,13 @@ using TiledMapParser;
             if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
                 builtUpVelocity += velocityBuildUpIncrements * (float)Time.deltaTime / 1000;
-                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 1.5f);
+                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, maxBuiltUpVelocity);
+                ParticleColor indicatorColor = new ParticleColor(255,255,2555,255);
+                indicatorColor = indicatorColor.LerpColor(new ParticleColor(minColor.R, minColor.G,minColor.B,minColor.A)
+                    , new ParticleColor(maxColor.R, maxColor.G,maxColor.B,maxColor.A), builtUpVelocity / maxBuiltUpVelocity);
+                speedIndicator.SetColor(indicatorColor.r,indicatorColor.g,indicatorColor.b);
+                
+                speedIndicator.visible = true;
             }
 
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
@@ -95,7 +105,8 @@ using TiledMapParser;
                 OnJump?.Invoke("Jump");
                 velocity = builtUpVelocity;
                 builtUpVelocity = 0;
-                
+                indicatorColor = new ParticleColor(minColor.R, minColor.G, minColor.B, minColor.A);
+                speedIndicator.visible = false;
                 //Play jump effect
             }
 
@@ -108,6 +119,7 @@ using TiledMapParser;
             {
                 //Console.WriteLine("you lose");
                 Level level = (Level)SceneManager.instance.GetActiveScene();
+                speedIndicator.Destroy();
                 level.LostLevel();
                 canMove = false;
             }
@@ -121,8 +133,7 @@ using TiledMapParser;
             {
                 x = game.width;
             }
-
-        CollisionCheck();
+            
     }
 
         private void OnCollision(GameObject other)
@@ -144,6 +155,9 @@ using TiledMapParser;
                     ObstaclePlatform o = (ObstaclePlatform)other;
                     o.beenUsed = true;
                     touchingObstacle = true;
+                }else if (other is BouncyPlatform)
+                {
+                    rotation = -rotation;
                 }
                 if (!p.beenUsed)
                 {

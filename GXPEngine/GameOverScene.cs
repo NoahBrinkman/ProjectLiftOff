@@ -11,7 +11,7 @@
             canvas = new EasyDraw(game.width, game.height, false);
             AddChild(canvas);
         }
-        void Update()
+        protected override void Update()
         {
             if(!isActive) return;
             timer -= (float)Time.deltaTime / 1000;

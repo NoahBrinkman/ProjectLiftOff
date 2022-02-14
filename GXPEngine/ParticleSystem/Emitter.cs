@@ -38,7 +38,7 @@ namespace GXPEngine
         private float particlesperMS;
 
         private bool hasColorOverLifeTime = false;
-        private bool hasVelocityOverLiftTime = false;
+        //private bool hasVelocityOverLiftTime = false;
 
         private float timeSinceLastParticle = 0;
         private float millisecondsPerParticle;
@@ -101,7 +101,7 @@ namespace GXPEngine
         //Needs actual implementation
         public Emitter SetVelocityOverLifeTime(float minAngle, float maxAngle, float startSpeed, float endSpeed)
         {
-            hasVelocityOverLiftTime = true;
+            //hasVelocityOverLiftTime = true;
             this.minAngle = minAngle;
             this.maxAngle = maxAngle;
             //this.minSpeedPerParticle = minSpeedPps;

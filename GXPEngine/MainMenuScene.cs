@@ -10,7 +10,7 @@
             AddChild(canvas);
         }
 
-        void Update()
+        protected override void Update()
         {
             if(!isActive) return;
             canvas.Clear(0,0,0,0);

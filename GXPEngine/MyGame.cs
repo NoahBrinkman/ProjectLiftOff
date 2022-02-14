@@ -5,7 +5,6 @@ using System.Drawing;							// System.Drawing contains drawing tools such as Col
 
 public class MyGame : Game
 {
-	private Player player;
 	public float gravity = .3f;
 	public int currentScore;
 
