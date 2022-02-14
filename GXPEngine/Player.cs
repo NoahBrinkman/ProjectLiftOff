@@ -8,7 +8,6 @@ using TiledMapParser;
     
     public class Player : AnimationSprite
     {
-        
         private float builtUpVelocity;
         public float velocity { get; private set; }
         private float velocityBuildUpIncrements;
@@ -17,6 +16,7 @@ using TiledMapParser;
         private bool onPlatform = true;
         private bool canMove = true;
         public Action<string> OnJump;
+        Sprite indicator;
         public bool isAirborne
         {
             get { return (velocity >= 0.1f); }
@@ -43,6 +43,7 @@ using TiledMapParser;
             maxColor = Color.DarkRed;
             speedIndicator.visible = false;
             Console.WriteLine(maxBuiltUpVelocity);
+            indicator = new Sprite("powerArrow.png");
         }
         
         
@@ -59,13 +60,14 @@ using TiledMapParser;
             {
                 onPlatform = false;
             }
-            if (Input.GetKey(Key.D) && canMove)
+            if (Input.GetKey(Key.A) && canMove)
             {
                 if (rotation >= -110)
                 {
                     if (isAirborne)
                     {
                         rotation -= .5f;
+                      
                     }
                     else
                     {
@@ -74,7 +76,7 @@ using TiledMapParser;
                 }
             }
 
-            if (Input.GetKey(Key.A) && canMove)
+            if (Input.GetKey(Key.D) && canMove)
             {
                 if (rotation <= 110)
                 {
@@ -88,16 +90,32 @@ using TiledMapParser;
                     }
                 }
             }
+
+            indicator.rotation = rotation;
             if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
                 builtUpVelocity += velocityBuildUpIncrements * (float)Time.deltaTime / 1000;
-                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, maxBuiltUpVelocity);
-                ParticleColor indicatorColor = new ParticleColor(255,255,2555,255);
-                indicatorColor = indicatorColor.LerpColor(new ParticleColor(minColor.R, minColor.G,minColor.B,minColor.A)
-                    , new ParticleColor(maxColor.R, maxColor.G,maxColor.B,maxColor.A), builtUpVelocity / maxBuiltUpVelocity);
-                speedIndicator.SetColor(indicatorColor.r,indicatorColor.g,indicatorColor.b);
-                
+                builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 1.5f);
+                ParticleColor indicatorColor = new ParticleColor(255, 255, 2555, 255);
+                indicatorColor = indicatorColor.LerpColor(new ParticleColor(minColor.R, minColor.G, minColor.B, minColor.A)
+                , new ParticleColor(maxColor.R, maxColor.G, maxColor.B, maxColor.A), builtUpVelocity / maxBuiltUpVelocity);
+                speedIndicator.SetColor(indicatorColor.r, indicatorColor.g, indicatorColor.b);
+
                 speedIndicator.visible = true;
+
+                parent.LateAddChild(indicator);
+                indicator.SetOrigin(indicator.width/2, indicator.height/2);
+                indicator.SetScaleXY(.1f, .1f);
+                indicator.SetXY(x - 20, y - 50);
+        
+                float scaleValue = Math.Max(builtUpVelocity, 1);
+                indicator.scale = scaleValue / 60;
+                //Console.WriteLine("Y position: " + y);
+            }
+
+            if (Input.GetKeyUp(Key.SPACE))
+            {
+               indicator.SetXY(1000f,1000f);
             }
 
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
