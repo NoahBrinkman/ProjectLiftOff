@@ -99,7 +99,6 @@
     <Compile Include="SceneSystem\Scene.cs" />
     <Compile Include="SceneSystem\SceneManager.cs" />
     <Compile Include="SFXHandler.cs" />
-    <Compile Include="SwitchMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

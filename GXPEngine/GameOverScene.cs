@@ -4,7 +4,7 @@
     {
         private EasyDraw canvas;
         private float timer = 5;
-        
+        //add highscore thingy here
         
         public GameOverScene() : base()
         {

@@ -64,7 +64,7 @@ class Level : Scene
         AddChild(objectOwner);
         objectOwner.AddChild(player);
         player.OnJump += PlaySoundEffect;
-        PlatformSpawner platformSpawner = new PlatformSpawner(1.4f, objectOwner, 10, 3, 10);
+        PlatformSpawner platformSpawner = new PlatformSpawner(1.3f, objectOwner, 10, 3, 10);
         AddChild(platformSpawner);
         // Score UI 
         scoreUI = new EasyDraw(200, 30, false);

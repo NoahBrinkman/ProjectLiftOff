@@ -64,18 +64,6 @@ namespace GXPEngine
                     p.SetColor(1,0,1);
                     platformParent.AddChild(p);
                 }
-                /*if (r <= percentageChanceOfCollapsable) p = new CollapsingPlatform("square.png", secondsBeforeCollapse);
-                else if (r > percentageChanceOfCollapsable && r <= percentageChanceOfCollapsable + percentageForBooster)
-                {
-                    p = new BoosterPlatform("triangle.png", 1.6f);
-                    p.alpha = .5f;
-                    p.rotation = Utils.Random(-60, 60);
-                }else if(r > percentageChanceOfCollapsable + percentageForBooster && r <= percentageChanceOfCollapsable + percentageForBooster + percentageForObstacle)
-
-                {
-                    p = new ObstaclePlatform("square.png");
-                    platformParent.AddChild(p);
-                }*/
 
                 p.SetOrigin(p.width / 2, p.height / 2);
                 p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);
