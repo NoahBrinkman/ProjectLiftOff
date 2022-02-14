@@ -9,7 +9,7 @@ using TiledMapParser;
             SetColor(255, 255, 0);
             this.secondsBeforeCollapse = secondsBeforeCollapse;
             timer = secondsBeforeCollapse;
-            
+            SetCycle(0,frameCount);
         }
 
         void Update()
@@ -17,7 +17,8 @@ using TiledMapParser;
             if (beenUsed)
             {
                 timer -= (float)Time.deltaTime / 1000;
-                SetCycle(0,frameCount);
+                
+                Animate(.1f);
                 if (timer <= 0)
                 {
                     LateDestroy();
