@@ -13,7 +13,7 @@ public class MyGame : Game
 		{"Jump", new Sound("Jump.wav")},
 		{"GameOver", new Sound("GameOver.wav")}
 	};
-	public MyGame() : base(1366, 768, true)	
+	public MyGame() : base(1366, 768, false)	
 	{
 		Sprite backGround = new Sprite("background-01.png", false, false);
 		AddChild(backGround);
