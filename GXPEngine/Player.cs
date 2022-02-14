@@ -50,6 +50,12 @@ using TiledMapParser;
         
         void Update()
         {
+            
+            if (!isAirborne)
+            {
+                SetCycle(0,1);
+            }
+            Animate(.1f);
             speedIndicator.SetXY(x, y +parentObject.y + height / 2 + 20);
             if (!canMove)
             {
@@ -94,6 +100,7 @@ using TiledMapParser;
             indicator.rotation = rotation;
             if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
+                SetCycle(0,4);
                 builtUpVelocity += velocityBuildUpIncrements * (float)Time.deltaTime / 1000;
                 builtUpVelocity = Mathf.Clamp(builtUpVelocity, 0, velocityBuildUpIncrements * 1.5f);
                 ParticleColor indicatorColor = new ParticleColor(255, 255, 2555, 255);
@@ -120,6 +127,7 @@ using TiledMapParser;
 
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
             {
+                SetCycle(4,10);
                 OnJump?.Invoke("Jump");
                 velocity = builtUpVelocity;
                 builtUpVelocity = 0;

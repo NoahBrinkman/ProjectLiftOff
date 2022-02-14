@@ -42,8 +42,7 @@ class Level : Scene
     {
         isActive = true;
         objectOwner = new Pivot();
-        player = new Player("triangle.png", 4,2,objectOwner,1,1,null);
-        player.SetColor(0,255,0);
+        player = new Player("charSpriteSheet.png", 4,2,objectOwner,4,4,null);
         player.SetOrigin(player.width / 2, player.height / 2);
         player.SetScaleXY(.5f,.5f);
         player.x = game.width / 2;
@@ -56,7 +55,7 @@ class Level : Scene
         p1.SetScaleXY(2);
         p2.SetXY(700, 200);
         p2.SetScaleXY(2);
-        p3.SetXY(300, 500);
+        p3.SetXY(1000, 100);
         p3.SetScaleXY(2);
         objectOwner.AddChild(starterPlatform);
         objectOwner.AddChild(p1);
