@@ -44,6 +44,11 @@ using TiledMapParser;
             speedIndicator.visible = false;
             Console.WriteLine(maxBuiltUpVelocity);
             indicator = new Sprite("powerArrow.png");
+            indicator.SetOrigin(indicator.width / 2, indicator.height / 2);
+            indicator.SetScaleXY(.2f, .2f);
+            indicator.SetXY(x-10, y - 150);
+            AddChild(indicator);
+            indicator.visible = false;
         }
         
         
@@ -57,7 +62,7 @@ using TiledMapParser;
             }
             Animate(.1f);
             speedIndicator.SetXY(x, y +parentObject.y + height / 2 + 20);
-            if (!canMove)
+        if (!canMove)
             {
                 return;
             }
@@ -97,7 +102,6 @@ using TiledMapParser;
                 }
             }
 
-            indicator.rotation = rotation;
             if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
                 SetCycle(0,4);
@@ -110,19 +114,10 @@ using TiledMapParser;
 
                 speedIndicator.visible = true;
 
-                parent.LateAddChild(indicator);
-                indicator.SetOrigin(indicator.width/2, indicator.height/2);
-                indicator.SetScaleXY(.1f, .1f);
-                indicator.SetXY(x - 20, y - 50);
-        
+                indicator.visible = true;
                 float scaleValue = Math.Max(builtUpVelocity, 1);
-                indicator.scale = scaleValue / 60;
+                indicator.scale = scaleValue / 30;               
                 //Console.WriteLine("Y position: " + y);
-            }
-
-            if (Input.GetKeyUp(Key.SPACE))
-            {
-               indicator.SetXY(1000f,1000f);
             }
 
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
@@ -133,6 +128,7 @@ using TiledMapParser;
                 builtUpVelocity = 0;
                 indicatorColor = new ParticleColor(minColor.R, minColor.G, minColor.B, minColor.A);
                 speedIndicator.visible = false;
+                indicator.visible = false;
                 //Play jump effect
             }
 
@@ -146,10 +142,11 @@ using TiledMapParser;
                 //Console.WriteLine("you lose");
                 Level level = (Level)SceneManager.instance.GetActiveScene();
                 speedIndicator.Destroy();
+                indicator.Destroy();
                 level.LostLevel();
                 canMove = false;
             }
-            
+
             if (x > game.width)
             {
                x = 0;
