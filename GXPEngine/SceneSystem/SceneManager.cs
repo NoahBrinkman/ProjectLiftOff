@@ -119,7 +119,7 @@ namespace GXPEngine
         /// </summary>
         void Update()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.L))
             {
                 Console.WriteLine("Total Scenes: " + scenes.Count);
                 Console.WriteLine("Current Scene: "+ scenes.IndexOf(activeScene));

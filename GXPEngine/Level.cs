@@ -26,6 +26,8 @@ class Level : Scene
     private float timer = 1.5f;
     EasyDraw scoreUI;
     private SFXHandler sfxHandler;
+    private WrappingBackground mainBackGround;
+    private WrappingBackground secondaryBackground;
     public Level(float startingGravity, float gravityIncrements, Dictionary<string,Sound> soundLibrary): base()
     {
         this.gravity = startingGravity;
@@ -36,36 +38,41 @@ class Level : Scene
     /// <summary>
     ///Set up the level.
     /// </summary>
-    /// 
-
+    ///
     protected override void Start()
     {
         isActive = true;
         objectOwner = new Pivot();
-        player = new Player("charSpriteSheet.png", 4,2,objectOwner,4,4,null);
+        player = new Player("charSpriteSheet.png", 3, 2,7, objectOwner,4,3,null);
         player.SetOrigin(player.width / 2, player.height / 2);
         player.SetScaleXY(.5f,.5f);
         player.x = game.width / 2;
         player.y = game.height - 300;
-        Platform starterPlatform = new Platform("Square.png");
+        Platform starterPlatform = new Platform("Meteor.png");
         starterPlatform.SetXY(game.width / 2, game.height - 300);
-        starterPlatform.SetScaleXY(2,2);
-        Platform p1 = new Platform("Square.png"), p2 = new Platform("Square.png"), p3 = new Platform("Square.png");
+        starterPlatform.SetScaleXY(0.12f);
+        Platform p1 = new Platform("Meteor.png"), p2 = new Platform("Meteor.png"), p3 = new Platform("Meteor.png");
         p1.SetXY(200, 100);
-        p1.SetScaleXY(2);
+        p1.SetScaleXY(0.12f);
         p2.SetXY(700, 200);
-        p2.SetScaleXY(2);
+        p2.SetScaleXY(0.12f);
         p3.SetXY(1000, 100);
-        p3.SetScaleXY(2);
+        p3.SetScaleXY(0.12f);
         objectOwner.AddChild(starterPlatform);
         objectOwner.AddChild(p1);
         objectOwner.AddChild(p2);
         objectOwner.AddChild(p3);
-        
+        mainBackGround = new WrappingBackground("background-tile-clean-01.png");
+        secondaryBackground = new WrappingBackground("background-tile-planets-01.png");
+        secondaryBackground.SetScaleXY(1,1.01f);
+        mainBackGround.SetScaleXY(1, 1.01f);
+        AddChild(mainBackGround);
+        AddChild(secondaryBackground);
         AddChild(objectOwner);
         objectOwner.AddChild(player);
         player.OnJump += PlaySoundEffect;
-        PlatformSpawner platformSpawner = new PlatformSpawner(1.3f, objectOwner, 10, 3, 10);
+        PlatformSpawner platformSpawner = new PlatformSpawner(1.3f, objectOwner, 15, 
+            3, 10, 20, 5);
         AddChild(platformSpawner);
         // Score UI 
         scoreUI = new EasyDraw(200, 30, false);
@@ -85,6 +92,9 @@ class Level : Scene
         {
             return;
         }
+
+        mainBackGround.speed = gravity / 4;
+        secondaryBackground.speed = gravity / 2;
         scoreUI.Text("SCORE: " + score, true);
         //Console.WriteLine(gravity);
         if (!levelIsLost)
@@ -100,6 +110,8 @@ class Level : Scene
 
         if (timer <= 0)
         {
+            MyGame mygame = (MyGame)game;
+            mygame.currentScore = score;
             SceneManager.instance.TryLoadNextScene();
         }
         
@@ -108,6 +120,7 @@ class Level : Scene
     public void LostLevel()
     {
         levelIsLost = true;
+        gravity = 0.0001f;
         sfxHandler.PlaySound("GameOver");
     }
 

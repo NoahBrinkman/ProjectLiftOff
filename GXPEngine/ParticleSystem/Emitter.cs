@@ -15,6 +15,7 @@ namespace GXPEngine
         You never really want to rely on fps and framerate, because then you're frame locking your game. 
         The solution to that is Time.deltaTime. Do you know what the value it returns to you means?
         */
+        public bool isActive = true;
         private int particlesPerSecond;
         private float particleLifeTime;
         private string particleFileName;
@@ -30,13 +31,13 @@ namespace GXPEngine
         private Color startingColor;
         private Color endColor;
 
-        private int minimumRangeX;
-        private int maximumRangeX;
-        private int minimumRangeY;
-        private int maximumRangeY;
+        private float minimumRangeX;
+        private float maximumRangeX;
+        private float minimumRangeY;
+        private float maximumRangeY;
         
         private float particlesperMS;
-
+        private bool shouldBeLinkedToEmitter = false;
         private bool hasColorOverLifeTime = false;
         //private bool hasVelocityOverLiftTime = false;
 
@@ -58,6 +59,7 @@ namespace GXPEngine
         
         void Update()
         {
+            if(!isActive) return;
             timeSinceLastParticle += Time.deltaTime;
             while (timeSinceLastParticle >= millisecondsPerParticle)
             {
@@ -86,7 +88,8 @@ namespace GXPEngine
             }
 
             p.SetXY(Utils.Random(minimumRangeX, maximumRangeX), Utils.Random(minimumRangeY, maximumRangeY));
-            game.AddChild(p);
+            if(shouldBeLinkedToEmitter) AddChild(p);
+            else game.AddChild(p);
         }
         
         public Emitter SetVelocity(float minAngle, float maxAngle, float minSpeedPps, float maxSpeedPps)
@@ -124,7 +127,7 @@ namespace GXPEngine
             return this;
         }
 
-        public Emitter SetSpawnPosition(int x, int y, int minimumRangeX, int maximumRangeX, int minimumRangeY, int maximumRangeY)
+        public Emitter SetSpawnPosition(float x, float y, float minimumRangeX, float maximumRangeX, float minimumRangeY, float maximumRangeY)
         {
             this.x = x;
             this.y = y;
@@ -134,6 +137,11 @@ namespace GXPEngine
             this.maximumRangeY = maximumRangeY;
             return this;
         }
-        
+
+        public Emitter AttachParticleFromEmitter()
+        {
+            shouldBeLinkedToEmitter = true;
+            return this;
+        }
     }
 }

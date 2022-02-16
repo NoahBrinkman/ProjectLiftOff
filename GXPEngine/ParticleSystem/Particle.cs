@@ -33,7 +33,7 @@ namespace GXPEngine
     
     public class Particle : AnimationSprite
     {
-        private float lifeTime;
+        private float lifeTime = 0;
         private float totalLifeTime;
         private float velocityX;
         private float velocityY;
@@ -48,7 +48,7 @@ namespace GXPEngine
             this.velocityX = velocityX;
             this.velocityY = velocityY;
             this.totalLifeTime= lifeTime;
-            this.lifeTime = lifeTime;
+            this.lifeTime = 0;
             SetScaleXY(scale);
         }
         public Particle(string fileName, int rows, int cols,int frames, Color startColor,

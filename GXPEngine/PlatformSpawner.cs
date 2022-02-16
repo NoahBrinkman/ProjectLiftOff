@@ -42,26 +42,24 @@ namespace GXPEngine
             {
 
                 int r = Utils.Random(0, 100);
-                var p = new Platform("square.png");
+                var p = new Platform("Meteor.png");
                 if (r <= percentageChanceOfCollapsable)
                 {
-                    p = new CollapsingPlatform("square.png", secondsBeforeCollapse);
+                    p = new CollapsingPlatform("CollapsableAstroid.png", secondsBeforeCollapse,13,1);
                 }else if (r <= (percentageChanceOfCollapsable + percentageForBooster))
                 {
-                    p = new BoosterPlatform("triangle.png", 1.6f);
-                    p.alpha = .5f;
-                    p.rotation = Utils.Random(-60, 60);
+                    p = new BoosterPlatform("BoosterShot.png", 1.6f);
+                    p.SetScaleXY(0.32f);
                     Console.WriteLine("Hi");
                     platformParent.AddChildAt(p,0);
                 }else if (r <= (percentageChanceOfCollapsable + percentageForBooster + percentageForObstacle))
                 {
-                    p = new ObstaclePlatform("square.png");
+                    p = new ObstaclePlatform("Obstacle.png",2,1);
                     platformParent.AddChild(p);
                 }else if (r <= (percentageChanceOfCollapsable + percentageForBooster + percentageForObstacle +
                                 percentageForBouncy))
                 {
-                    p = new BouncyPlatform("square.png");
-                    p.SetColor(1,0,1);
+                    p = new BouncyPlatform("BouncingPlatform.png");
                     platformParent.AddChild(p);
                 }
 
@@ -69,7 +67,7 @@ namespace GXPEngine
                 p.SetXY(Utils.Random(0 + p.width / 2, game.width - p.width / 2), -150 - platformParent.y);
                 if (!(p is BoosterPlatform) && !(p is ObstaclePlatform)&& !(p is BouncyPlatform))
                 {
-                    p.SetScaleXY(2, 2);
+                    p.SetScaleXY(0.12f);
                     platformParent.AddChildAt(p, 0);
                 }
 

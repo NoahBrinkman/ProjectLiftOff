@@ -49,6 +49,7 @@
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="HighscoreSaving.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MainMenuScene.cs" />
     <Compile Include="MathFunctions.cs" />
@@ -98,7 +99,9 @@
     <Compile Include="Player.cs" />
     <Compile Include="SceneSystem\Scene.cs" />
     <Compile Include="SceneSystem\SceneManager.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="SFXHandler.cs" />
+    <Compile Include="WrappingBackground.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

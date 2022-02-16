@@ -11,13 +11,19 @@ public class MyGame : Game
 	private Dictionary<string, Sound> soundLibrary = new Dictionary<string, Sound>()
 	{
 		{"Jump", new Sound("Jump.wav")},
-		{"GameOver", new Sound("GameOver.wav")}
+		{"GameOver", new Sound("GameOver.wav")},
+		{"BGM", new Sound("BGM.wav",true)}
 	};
-	public MyGame() : base(1366, 768, false)	
+
+	public HighscoreSaving highScoreManager { get; private set; }
+	private Sound bgm;
+	public MyGame() : base(1366, 768, true)	
 	{
-		Sprite backGround = new Sprite("background-01.png", false, false);
+		WrappingBackground backGround = new WrappingBackground("background-01.png");
 		AddChild(backGround);
+		highScoreManager = new HighscoreSaving();
 		SetUpScenes();
+		soundLibrary["BGM"].Play(false,0U,.5f, 0);
 	}
 
 	public void SetUpScenes()
@@ -33,8 +39,8 @@ public class MyGame : Game
 	// For every game object, Update is called every frame, by the engine:
 	void Update()
 	{
+		
 	}
-
 	static void Main()							// Main() is the first method that's called when the program is run
 	{ 
 		new MyGame().Start();					// Create a "MyGame" and start it
