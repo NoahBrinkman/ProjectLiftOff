@@ -46,10 +46,11 @@ using TiledMapParser;
             speedIndicator.visible = false;
             Console.WriteLine(maxBuiltUpVelocity);
             indicator = new Sprite("powerArrow.png");
-            indicator.visible = false;
-            indicator.SetOrigin(indicator.width/2, indicator.height/2);
+            indicator.SetOrigin(indicator.width / 2, indicator.height / 2);
             indicator.SetScaleXY(.2f, .2f);
-            indicator.SetXY(0,height / 2 - 20);
+            indicator.SetXY(x-10, y - 150);
+            AddChild(indicator);
+            indicator.visible = false;
             emitter = new Emitter("StarParticle.png", 1, 1, 1, 2000, .2f, BlendMode.NORMAL);
            emitter.SetRandomScale(2,4);
            Color startcolor = Color.FromArgb( 255, Color.Bisque);
@@ -59,7 +60,6 @@ using TiledMapParser;
             emitter.SetVelocity(0, 360, 1, 3);
             emitter.isActive = false;
             AddChild(emitter);
-            // AddChild(indicator);
 
 
         }
@@ -74,7 +74,7 @@ using TiledMapParser;
                 SetCycle(0,1);
             }
             Animate(.1f);
-
+            speedIndicator.SetXY(x, y +parentObject.y + height / 2 + 20);
             if (!canMove)
             {
                 return;
@@ -119,7 +119,7 @@ using TiledMapParser;
             {
                 SetCycle(0,4);
             }
-            //indicator.rotation = rotation;
+
             if (Input.GetKey(Key.SPACE) && !isAirborne &&canMove)
             {
                 
@@ -134,9 +134,18 @@ using TiledMapParser;
                 speedIndicator.SetXY(x, y +parentObject.y + height / 2 + 20);
                 indicator.visible = true;
                 indicator.SetXY(x - width * 4f - indicator.width * 1.7f, y - height * 2 - indicator.height *4);
+
+                indicator.visible = true;
+                float scaleValue = Math.Max(builtUpVelocity, 1);
+                indicator.scale = scaleValue / 30;               
                 //Console.WriteLine("Y position: " + y);
             }
-            
+
+            if (Input.GetKeyUp(Key.SPACE))
+            {
+               indicator.SetXY(1000f,1000f);
+            }
+
             if (Input.GetKeyUp(Key.SPACE) && !isAirborne)
             {
                 SetCycle(4,10);
@@ -145,9 +154,10 @@ using TiledMapParser;
                 builtUpVelocity = 0;
                 indicatorColor = new ParticleColor(minColor.R, minColor.G, minColor.B, minColor.A);
                 speedIndicator.visible = false;
-                indicator.visible = false;
+       
                 emitter.SetSpawnPosition(x, y +parentObject.y + height / 2 , x - 20, x + 20, y +parentObject.y + height / 2 - 20, y +parentObject.y + height / 2 + 20);
                 emitter.isActive = true;
+                indicator.visible = false;
                 //Play jump effect
             }
 
@@ -161,10 +171,11 @@ using TiledMapParser;
                 //Console.WriteLine("you lose");
                 Level level = (Level)SceneManager.instance.GetActiveScene();
                 speedIndicator.Destroy();
+                indicator.Destroy();
                 level.LostLevel();
                 canMove = false;
             }
-            
+
             if (x > game.width)
             {
                x = 0;
